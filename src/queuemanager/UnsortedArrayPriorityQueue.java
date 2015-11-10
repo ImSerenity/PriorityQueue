@@ -32,8 +32,20 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
     public T head() throws QueueUnderflowException {
         if (isEmpty()) {
             throw new QueueUnderflowException();
-        } else {
-            return ((Wrapper<T>) storage[0]).getItem();
+        } else {   
+            Wrapper<T> max = (Wrapper<T>) storage[0];
+            int maxIndex = 0;
+            
+            for(int i = 1; i <= tailIndex; i++)
+            {
+                Wrapper<T> item = ((Wrapper<T>) storage[i]);
+                if(item.getPriority() > max.getPriority())
+                {
+                    max = item;
+                    maxIndex = i;
+                }
+            }
+            return ((Wrapper<T>) storage[maxIndex]).getItem();
         }
     }
 
@@ -60,8 +72,9 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
             throw new QueueUnderflowException();
         } else {
             for (int i = 0; i < tailIndex; i++) {
-                storage[i] = storage[i + 1];
+
             }
+            
             tailIndex = tailIndex - 1;
         }
     }
