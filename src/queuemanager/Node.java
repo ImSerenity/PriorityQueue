@@ -7,7 +7,7 @@ package queuemanager;
 
 public class Node<T> {
     private T item;
-    private Node<T> next;
+    public Node<T> next;
     private int priority;
     
     public Node(T item, Node<T> next, int priority) {

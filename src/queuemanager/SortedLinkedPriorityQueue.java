@@ -12,6 +12,7 @@ package queuemanager;
 public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
     
     private final Object[] storage;
+    private Node<T> head;
 
     /**
      * The size of the storage array.
@@ -32,6 +33,7 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
      */
     public SortedLinkedPriorityQueue(int size) {
         storage = new Object[size];
+        head = null;
         capacity = size;
         tailIndex = -1;
     }
@@ -41,19 +43,28 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
         if (tailIndex == capacity - 1) {
             throw new QueueOverflowException();
         } else {   
-            Node<T> head = null;
-            Node<T> newNode = null;
+            Node<T> newNode = null;   
+            Node<T> prevNode = null;
             Node<T> node = head;
+            
             while(node != null)
             {
-                newNode.setNext(head);
-                head = newNode;
-                node = node.getNext();
-                newNode.setNext(node.getNext());
-                node.setNext(newNode);
+                newNode.next = prevNode.next;
+                prevNode.next = newNode;
                 
-                node.getNext();
+                if(newNode.getPriority() > prevNode.getPriority())
+                {
+                    node.setNext(head);
+                }
+                //node.setNext(head);
+                //head = newNode;
+                //node = node.getNext();
+                //newNode.setNext(node.getNext());
+                //node.setNext(newNode);
+                
+                //node.getNext();
             }
+
         }
     }
 
@@ -62,7 +73,19 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
         if (isEmpty()) {
             throw new QueueUnderflowException();
         } else {   
- 
+            Node<T> node = null;
+            int maxIndex = 0;
+            
+            for(int i = 1; i <= tailIndex; i++)
+            {
+                Node<T> getNode = node;
+                if(getNode.getPriority() > node.getPriority())
+                {
+                    node = getNode;
+                    maxIndex = i;
+                    node.getNext();
+                 }
+            }
         }
         return null;
     }
