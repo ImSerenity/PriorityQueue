@@ -5,13 +5,15 @@
  */
 package queuemanager;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author 09004316
  */
 public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
     
-    private final Object[] storage;
     private Node<T> head;
 
     /**
@@ -32,10 +34,9 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
      * @param size
      */
     public SortedLinkedPriorityQueue(int size) {
-        storage = new Object[size];
-        head = null;
         capacity = size;
         tailIndex = -1;
+        head = null;
     }
 
     @Override
@@ -43,19 +44,34 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
         if (tailIndex == capacity - 1) {
             throw new QueueOverflowException();
         } else {   
-            Node<T> newNode = null;   
-            Node<T> prevNode = null;
-            Node<T> node = head;
-            
-            while(node != null)
-            {
-                newNode.next = prevNode.next;
-                prevNode.next = newNode;
+            Node<T> newNode = null;
+            //System.out.println("Node1: " + newNode);
+            Node<T> node = null;
+
+            //Loop until target found
+            while (node.getNext() != null) {
                 
-                if(newNode.getPriority() > prevNode.getPriority())
-                {
-                    node.setNext(head);
-                }
+                node = node.getNext();
+
+                System.out.println("Node2: " + newNode);
+                
+                node = node.next;
+                newNode.setNext(node.next);
+                node.setNext(newNode);
+                       // newNode.setNext(node.getNext());
+                       //node.setNext(newNode);
+                       // newNode = head;
+                       // head.getNext();
+                System.out.println("Node2: " + newNode);
+
+                   
+                        newNode.setNext(node.next);
+                        node.setNext(newNode);
+                        node = node.next;
+                        System.out.println("Node3: " + head);
+
+                   
+            }
                 //node.setNext(head);
                 //head = newNode;
                 //node = node.getNext();
@@ -66,7 +82,6 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
             }
 
         }
-    }
 
     @Override
     public T head() throws QueueUnderflowException {
@@ -74,15 +89,12 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
             throw new QueueUnderflowException();
         } else {   
             Node<T> node = null;
-            int maxIndex = 0;
             
             for(int i = 1; i <= tailIndex; i++)
             {
-                Node<T> getNode = node;
-                if(getNode.getPriority() > node.getPriority())
+                if(node.getPriority() >= head.getPriority())
                 {
-                    node = getNode;
-                    maxIndex = i;
+                    node = head;
                     node.getNext();
                  }
             }
@@ -93,7 +105,23 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
 
     @Override
     public void remove() throws QueueUnderflowException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       if(isEmpty()) {
+           throw new QueueUnderflowException();
+       } else {
+           Node<T> tmp = head;
+           Node<T> node = new Node<>(item, head, capacity);
+           if(tmp == node)
+           {
+               tmp = node.getNext();
+           } else {
+               while (tmp.getNext() != node) {
+                   tmp = tmp.getNext();
+                   tmp.setNext(node.getNext());
+               }
+           }
+           
+       }
+       head = head.getNext();
     }
 
     @Override
@@ -103,16 +131,66 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
     
     @Override
     public String toString() {
-        String result = "[";
-        for (int i = 0; i <= tailIndex; i++) {
-            if (i > 0) {
-                result = result + ", ";
+        String result = "LinkedStack: size = " + size();
+        result += ", contents = [";
+        //for (int i = 0; i <= tailIndex; i++) {
+        //    if (i > 0) {
+        //        result = result + ", ";
+        //    }
+           // result = result + storage[i];
+      //  }
+        
+         for (Node<T> node = head; node != null; node = node.getNext()) {
+            if (node != head) {
+                
+                result += ", ";
             }
-            result = result + storage[i];
+            result += node.getItem();    
+            result = result + "]";  
         }
-        result = result + "]";
+         result += "], isEmpty() = " + isEmpty();
+         if (!isEmpty()) {
+            try {
+                result += ", head() = " + head();
+            } catch (QueueUnderflowException ex) {
+                Logger.getLogger(SortedLinkedPriorityQueue.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         }
+         return result;
+    }
+    
+    private int size() {
+        Node<T> node = head;
+        int result = 0;
+        while (node != null) {
+            result = result + 1;
+            node = node.getNext();
+        }
         return result;
     }
     
-    
+    //Example code so I can kind of maybe understand how to do the code
+    //Search stack for identical item to target and remove it
+    public void removeSpec(T target) {
+        
+        if(head != null) {
+            if (head.getItem().equals(target))
+            {
+                head = head.getNext();
+            } else {
+                
+                //List is not empty and the first item is not the targer
+                Node<T> node = head;
+
+                //Loop until target found
+                while (node.getNext() != null && !node.getNext().getItem().equals(target)) {
+                    node = node.getNext();
+                }
+
+                if(node.getNext() != null) {
+                    node.setNext(node.getNext().getNext());
+                }
+            }
+        }
+    }
 }
