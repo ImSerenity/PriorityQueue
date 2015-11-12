@@ -44,55 +44,36 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
         if (tailIndex == capacity - 1) {
             throw new QueueOverflowException();
         } else {   
-            Node<T> newNode = null;
             //System.out.println("Node1: " + newNode);
-            Node<T> node = null;
-
+            Node<T> newN = new Node<>(item, head, priority);
+           System.out.println("Node: " + newN.getItem() + "Node Priority: " + newN.getPriority());
             //Loop until target found
-            while (node.getNext() != null) {
-                
-                node = node.getNext();
+            for (Node<T> node = head; node != null; node = node.getNext())
+            {
+                System.out.println("Node2: " + newN);
 
-                System.out.println("Node2: " + newNode);
-                
+                newN.setNext(head);
+                head = newN;
                 node = node.next;
-                newNode.setNext(node.next);
-                node.setNext(newNode);
-                       // newNode.setNext(node.getNext());
-                       //node.setNext(newNode);
-                       // newNode = head;
-                       // head.getNext();
-                System.out.println("Node2: " + newNode);
-
-                   
-                        newNode.setNext(node.next);
-                        node.setNext(newNode);
-                        node = node.next;
-                        System.out.println("Node3: " + head);
-
-                   
-            }
-                //node.setNext(head);
-                //head = newNode;
-                //node = node.getNext();
-                //newNode.setNext(node.getNext());
-                //node.setNext(newNode);
+                newN.setNext(node.next);
+                node.setNext(newN);
                 
-                //node.getNext();
+                System.out.println("Node3: " + node.next.getItem());
+        
             }
-
         }
+    }
 
     @Override
     public T head() throws QueueUnderflowException {
         if (isEmpty()) {
             throw new QueueUnderflowException();
         } else {   
-            Node<T> node = null;
+            Node<T> node = head;
             
             for(int i = 1; i <= tailIndex; i++)
             {
-                if(node.getPriority() >= head.getPriority())
+                //if(node.next.getItem() >= head.next.getItem())
                 {
                     node = head;
                     node.getNext();
@@ -105,23 +86,21 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
 
     @Override
     public void remove() throws QueueUnderflowException {
-       if(isEmpty()) {
+        if(isEmpty()) {
            throw new QueueUnderflowException();
-       } else {
-           Node<T> tmp = head;
-           Node<T> node = new Node<>(item, head, capacity);
-           if(tmp == node)
-           {
-               tmp = node.getNext();
-           } else {
-               while (tmp.getNext() != node) {
-                   tmp = tmp.getNext();
-                   tmp.setNext(node.getNext());
-               }
-           }
+        } else {
+            Node<T> tmp = new Node<>(item, head, capacity);
+            
+            for (Node<T> node = head; node != null; node = node.getNext()) {
+                if(tmp.getNext().getPriority() > node.getNext().getPriority()) {
+                    node.setNext(null);
+                    tmp = node.next;
+                }
+                
+            }
+        }
+
            
-       }
-       head = head.getNext();
     }
 
     @Override
