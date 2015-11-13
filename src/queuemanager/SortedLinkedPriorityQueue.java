@@ -46,19 +46,15 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
         } else {   
             //System.out.println("Node1: " + newNode);
             Node<T> newN = new Node<>(item, head, priority);
-           System.out.println("Node: " + newN.getItem() + "Node Priority: " + newN.getPriority());
+            System.out.println("Node: " + newN.getItem() + "Node Priority: " + newN.getPriority());
             //Loop until target found
             for (Node<T> node = head; node != null; node = node.getNext())
             {
-                System.out.println("Node2: " + newN);
-
                 newN.setNext(head);
                 head = newN;
                 node = node.next;
                 newN.setNext(node.next);
-                node.setNext(newN);
-                
-                System.out.println("Node3: " + node.next.getItem());
+                node.setNext(newN);             
         
             }
         }
@@ -69,18 +65,17 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
         if (isEmpty()) {
             throw new QueueUnderflowException();
         } else {   
-            Node<T> node = head;
             
             for(int i = 1; i <= tailIndex; i++)
             {
                 //if(node.next.getItem() >= head.next.getItem())
                 {
-                    node = head;
-                    node.getNext();
-                 }
+                    Node<T> node = head;
+                    head = node.getNext();
+                }
             }
         }
-        return null;
+        return head;
     }
        
 
@@ -89,18 +84,12 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
         if(isEmpty()) {
            throw new QueueUnderflowException();
         } else {
-            Node<T> tmp = new Node<>(item, head, capacity);
-            
-            for (Node<T> node = head; node != null; node = node.getNext()) {
-                if(tmp.getNext().getPriority() > node.getNext().getPriority()) {
-                    node.setNext(null);
-                    tmp = node.next;
-                }
-                
-            }
-        }
-
-           
+            Node<T> node = head;
+            head = node.getNext();
+            head = null;
+            node.getNext();
+            node.setNext(node.next);
+        }       
     }
 
     @Override
