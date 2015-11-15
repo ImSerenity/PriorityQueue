@@ -12,11 +12,11 @@ import java.util.logging.Logger;
  *
  * @author 09004316
  */
-public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
+public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
     
     private Node<T> head;
 
-    public SortedLinkedPriorityQueue() {
+    public UnsortedLinkedPriorityQueue() {
         head = null;
     }
 
@@ -38,6 +38,9 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
         if (isEmpty()) {
             throw new QueueUnderflowException();
         } else {
+            while (node.getNext() != null) {
+                
+            }
             return head.getItem();
         }
             
@@ -49,7 +52,14 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
         if(isEmpty()) {
            throw new QueueUnderflowException();
         } else {
-            head = head.getNext();
+            if(head != null) {
+    
+                Node<T> node = head;
+                
+                if(head.getPriority() > head.getNext().getPriority()) {
+                    node.setNext(node.getNext().getNext());
+                }
+            }
         }       
     }
 

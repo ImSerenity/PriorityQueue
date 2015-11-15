@@ -7,12 +7,11 @@ package queuemanager;
 
 public class Node<T> {
     private T item;
-    public Node<T> next;
+    private Node<T> next;
     private int priority;
     
-    public Node(T item, Node<T> next, int priority) {
+    public Node(T item, int priority) {
         this.item = item;
-        this.next = next;
         this.priority = priority;
     }
     
