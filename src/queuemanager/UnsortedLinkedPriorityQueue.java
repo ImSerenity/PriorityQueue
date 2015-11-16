@@ -1,12 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package queuemanager;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -22,14 +14,11 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
 
     @Override
     public void add(T item, int priority) throws QueueOverflowException {
-        //System.out.println("Node1: " + newNode);
         Node<T> node = new Node<>(item, priority);
-        //System.out.println("Node: " + newN.getItem() + "Node Priority: " + newN.getPriority());
-        //Loop until target found
+        
         while (node.getNext() != null) {
-            Node<T> newN = head;
-            newN.setNext(head);
-
+            node.setNext(node);
+            node = node.getNext();
         }
     }
 
@@ -38,13 +27,17 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
         if (isEmpty()) {
             throw new QueueUnderflowException();
         } else {
-            while (node.getNext() != null) {
-                
-            }
-            return head.getItem();
-        }
             
-    }
+           // for(Node<T> node = head; node != null; node = node.getNext()) {
+              //  if(node.getNext().getPriority() > node.getPriority())
+              //  {
+              //      return node.getItem();
+             //   }
+          //  }
+          return null;
+        }
+    } 
+    
        
 
     @Override

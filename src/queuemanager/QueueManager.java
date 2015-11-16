@@ -46,10 +46,10 @@ public class QueueManager {
                 //System.out.println("Sorted linked list not implemented yet! Using a sorted array instead.");
                 break;
             case "ul":
-                //q = new UnsortedLinkedPriorityQueue<>();
-                //System.out.println("Using an unsorted linked list.");
-                q = new SortedArrayPriorityQueue<>(8);
-                System.out.println("Unsorted linked list not implemented yet! Using a sorted array instead.");
+                q = new UnsortedLinkedPriorityQueue<>();
+                System.out.println("Using an unsorted linked list.");
+                //q = new SortedArrayPriorityQueue<>(8);
+                //System.out.println("Unsorted linked list not implemented yet! Using a sorted array instead.");
                 break;
             case "h":
                 //q = new Heap<>(8);

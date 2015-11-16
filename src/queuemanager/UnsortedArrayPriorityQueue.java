@@ -71,13 +71,10 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
         if (isEmpty()) {
             throw new QueueUnderflowException();
         } else {
-            for (int i = 0; i < tailIndex; i++) {
-
-            }
-            
-            tailIndex = tailIndex - 1;
+            tailIndex = -1;
         }
     }
+           
 
     @Override
     public boolean isEmpty() {

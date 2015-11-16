@@ -21,15 +21,19 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
     }
 
     @Override
-    public void add(T item, int priority) throws QueueOverflowException {
+    public void add(T item, int priority) {
         //System.out.println("Node1: " + newNode);
         Node<T> node = new Node<>(item, priority);
         //System.out.println("Node: " + newN.getItem() + "Node Priority: " + newN.getPriority());
         //Loop until target found
-        while (node.getNext() != null) {
+        while (node.getNext() != null && !node.getNext().equals(node)) {
             Node<T> newN = head;
-            newN.setNext(head);
 
+            if(newN.getPriority() > head.getPriority()) {
+                newN.setNext(head);
+                head = newN;        
+                System.out.println("Head: " + head.getItem());
+            }   
         }
     }
 
@@ -39,8 +43,7 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
             throw new QueueUnderflowException();
         } else {
             return head.getItem();
-        }
-            
+        }     
     }
        
 
@@ -55,7 +58,11 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
 
     @Override
     public boolean isEmpty() {
-        return head == null;
+        if(head == null) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
     @Override
