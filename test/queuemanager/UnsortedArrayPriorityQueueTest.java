@@ -76,7 +76,7 @@ public class UnsortedArrayPriorityQueueTest {
      */
     @Test
     public void testAdd() throws Exception {
-        System.out.println("add");
+        System.out.println("Add Test 1");
         Object item = "Thomas";
         int priority = 1;
         Object item2 = "James";
@@ -88,7 +88,8 @@ public class UnsortedArrayPriorityQueueTest {
         instance.add(item, priority);
         instance.add(item2, priority2);
         instance.add(item3, priority3);
-        Object expResult = "[(Thomas, 1),(James, 3),(Ben, 2)]";
+        Object expResult = "[(Thomas, 1), (James, 3), (Ben, 2)]";
+        
         Object result = instance.toString();
         assertEquals(expResult, result);
         
@@ -98,16 +99,16 @@ public class UnsortedArrayPriorityQueueTest {
     /**
      * Test of remove method, of class UnsortedArrayPriorityQueue.
      */
-    @Test
+    /* @Test
     public void testRemove1() throws Exception {
-        System.out.println("Remove Test 1");
-        UnsortedArrayPriorityQueue instance = new UnsortedArrayPriorityQueue(10);
-        instance.add("One", 1);
-        instance.add("Two", 2);
-        System.out.println("Head: " + instance.head());
-        instance.remove();
-        System.out.println("New Head: " + instance.head());
-    }
+    System.out.println("Remove Test 1");
+    UnsortedArrayPriorityQueue instance = new UnsortedArrayPriorityQueue(10);
+    instance.add("One", 1);
+    instance.add("Two", 2);
+    System.out.println("Head: " + instance.head());
+    instance.remove();
+    System.out.println("Head: " + instance.head());
+    }*/
 
     /**
      * Test of isEmpty method, of class UnsortedArrayPriorityQueue.
@@ -118,9 +119,21 @@ public class UnsortedArrayPriorityQueueTest {
         UnsortedArrayPriorityQueue instance = new UnsortedArrayPriorityQueue(10);
         boolean expResult = true;
         boolean result = instance.isEmpty();
-        assertEquals(expResult, result);
         System.out.println("Values: " + instance.toString());
         System.out.println("Is Empty: " + instance.isEmpty());
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testIsEmpty2() throws QueueOverflowException {
+        System.out.println("isEmpty Test 2");
+        UnsortedArrayPriorityQueue instance = new UnsortedArrayPriorityQueue(10);
+        instance.add("Thomas", 3);
+        boolean expResult = false;
+        boolean result = instance.isEmpty();
+        System.out.println("Values: " + instance.toString());
+        System.out.println("Is Empty: " + instance.isEmpty());
+        assertEquals(expResult, result);
     }
 
     /**

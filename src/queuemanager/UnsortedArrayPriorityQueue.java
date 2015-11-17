@@ -73,9 +73,10 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
         } else {
             int i = tailIndex;
             while (i > 0 && ((Wrapper<T>) storage[i - 1] != null)) {
-                
+                if(i > tailIndex) {
+                    tailIndex = -1;
+                }
             }
-            tailIndex = -1;
         }
     }
            

@@ -15,11 +15,11 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
     @Override
     public void add(T item, int priority) throws QueueOverflowException {
         Node<T> node = new Node<>(item, priority);
+        Node<T> newN = null;
         
-        while (node.getNext() != null) {
-            node.setNext(node);
-            node = node.getNext();
-        }
+        newN = node;
+        newN.setNext(head);
+        head = newN;
     }
 
     @Override
@@ -27,33 +27,32 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
         if (isEmpty()) {
             throw new QueueUnderflowException();
         } else {
+            Node<T> current = head;
             
-           // for(Node<T> node = head; node != null; node = node.getNext()) {
-              //  if(node.getNext().getPriority() > node.getPriority())
-              //  {
-              //      return node.getItem();
-             //   }
-          //  }
-          return null;
+            while(current != null && current != head) {
+                if(current.getNext().getPriority()>= current.getPriority())
+                {
+                    head = current;
+                } else {
+                    current = current.getNext();
+                }       
+            } 
+            return head.getItem();
         }
-    } 
-    
-       
+    }
 
     @Override
     public void remove() throws QueueUnderflowException {
         if(isEmpty()) {
            throw new QueueUnderflowException();
         } else {
-            if(head != null) {
-    
-                Node<T> node = head;
+            for(Node<T> node = head; node != null; node = node.getNext()) { 
                 
                 if(head.getPriority() > head.getNext().getPriority()) {
                     node.setNext(node.getNext().getNext());
                 }
             }
-        }       
+        }
     }
 
     @Override
@@ -80,9 +79,10 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
             result += node.getItem();    
             result = result + "]";  
         }
-         result += "], isEmpty() = " + isEmpty();
+         result += ", isEmpty() = " + isEmpty();
          if (!isEmpty()) {
-                result += ", head() = " + head;
+                result += ", head() = " /** For testing purpose this is removed as it errors 
+                 * + head */;
          }
          return result;
     }
@@ -95,30 +95,5 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
             node = node.getNext();
         }
         return result;
-    }
-    
-    //Example code so I can kind of maybe understand how to do the code
-    //Search stack for identical item to target and remove it
-    public void removeSpec(T target) {
-        
-        if(head != null) {
-            if (head.getItem().equals(target))
-            {
-                head = head.getNext();
-            } else {
-                
-                //List is not empty and the first item is not the targer
-                Node<T> node = head;
-
-                //Loop until target found
-                while (node.getNext() != null && !node.getNext().getItem().equals(target)) {
-                    node = node.getNext();
-                }
-
-                if(node.getNext() != null) {
-                    node.setNext(node.getNext().getNext());
-                }
-            }
-        }
     }
 }
