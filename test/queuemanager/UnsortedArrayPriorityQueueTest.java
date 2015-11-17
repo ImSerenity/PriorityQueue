@@ -42,17 +42,33 @@ public class UnsortedArrayPriorityQueueTest {
      * @throws java.lang.Exception
      */
     @Test
-    public void testHead() throws Exception {
-        System.out.println("Head Test");
-        UnsortedArrayPriorityQueue instance = null;
+    public void testHead1() throws Exception {
+        System.out.println("Head Test 1");
+        UnsortedArrayPriorityQueue instance = new UnsortedArrayPriorityQueue(10);
         instance.add("One", 1);
         instance.add("Two", 2);
         instance.head();
-        Object expResult = 2;
+        Object expResult = "Two";
         Object result = instance.head();
         assertEquals(expResult, result);
         
-        System.out.println("Expected: " + expResult + "." + "Actual: " + result);
+        System.out.println("Expected: " + expResult + ". " + "Actual: " + result);
+    }
+    
+    @Test
+    public void testHead2() throws Exception {
+        System.out.println("Head Test 2");
+        UnsortedArrayPriorityQueue instance = new UnsortedArrayPriorityQueue(10);
+        instance.add("Three", 3);
+        instance.add("Four", 4);
+        instance.add("One", 1);
+        instance.add("Two", 2);
+        instance.head();
+        Object expResult = "Four";
+        Object result = instance.head();
+        assertEquals(expResult, result);
+        
+        System.out.println("Expected: " + expResult + ". " + "Actual: " + result);
     }
 
     /**
@@ -63,24 +79,34 @@ public class UnsortedArrayPriorityQueueTest {
         System.out.println("add");
         Object item = "Thomas";
         int priority = 1;
-        UnsortedArrayPriorityQueue instance = null;
-        Object expItemResult = "Thomas";
-        Object expPriorityResult = 1;
-        instance.add(item, priority);
+        Object item2 = "James";
+        int priority2 = 3;        
+        Object item3 = "Ben";
+        int priority3 = 2;
         
-        System.out.println("Expected Item: " + expItemResult + "." + "Actual Item: " + result);
+        UnsortedArrayPriorityQueue instance = new UnsortedArrayPriorityQueue(10);
+        instance.add(item, priority);
+        instance.add(item2, priority2);
+        instance.add(item3, priority3);
+        Object expResult = "(Thomas, 1),(James, 3),](Ben, 2)";
+        Object result = instance.toString();
+        assertEquals(expResult, result);
+        
+        System.out.println("Exp Priority Result: " + expResult + ". Actual: " + result + ".");
     }
 
     /**
      * Test of remove method, of class UnsortedArrayPriorityQueue.
      */
     @Test
-    public void testRemove() throws Exception {
-        System.out.println("remove");
-        UnsortedArrayPriorityQueue instance = null;
+    public void testRemove1() throws Exception {
+        System.out.println("Remove Test 1");
+        UnsortedArrayPriorityQueue instance = new UnsortedArrayPriorityQueue(10);
+        instance.add("One", 1);
+        instance.add("Two", 2);
+        System.out.println("Head: " + instance.head());
         instance.remove();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("New Head: " + instance.head());
     }
 
     /**
