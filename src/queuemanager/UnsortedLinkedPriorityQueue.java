@@ -12,6 +12,12 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
         head = null;
     }
 
+    /**
+     * Add new items directly to the end of the list
+     * @param item
+     * @param priority
+     * @throws QueueOverflowException 
+     */
     @Override
     public void add(T item, int priority) throws QueueOverflowException {
         Node<T> node = new Node<>(item, priority);
@@ -22,6 +28,11 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
         head = newN;
     }
 
+    /**
+     * Loops through the list to find the highest priority item
+     * @return T
+     * @throws QueueUnderflowException 
+     */
     @Override
     public T head() throws QueueUnderflowException {
         if (isEmpty()) {
@@ -41,6 +52,10 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
         }
     }
 
+    /**
+     * Loops through to find the head (highest priority) of the list and removes it
+     * @throws QueueUnderflowException 
+     */
     @Override
     public void remove() throws QueueUnderflowException {
         if(isEmpty()) {
@@ -55,21 +70,23 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
         }
     }
 
+    /**
+     * Checks if the list is empty or not
+     * @return true/false
+     */
     @Override
     public boolean isEmpty() {
         return head == null;
     }
     
+    /**
+     * Displays details about the list in a user friendly manner
+     * @return String
+     */
     @Override
     public String toString() {
         String result = "LinkedStack: size = " + size();
         result += ", contents = [";
-        //for (int i = 0; i <= tailIndex; i++) {
-        //    if (i > 0) {
-        //        result = result + ", ";
-        //    }
-           // result = result + storage[i];
-      //  }
         
          for (Node<T> node = head; node != null; node = node.getNext()) {
             if (node != head) {
@@ -87,6 +104,10 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
          return result;
     }
     
+    /**
+     * Calculates the size of the list
+     * @return int
+     */
     private int size() {
         Node<T> node = head;
         int result = 0;

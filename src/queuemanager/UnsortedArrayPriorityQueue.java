@@ -19,7 +19,6 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
 
     /**
      * Create a new empty queue of the given size.
-     *
      * @param size
      */
     public UnsortedArrayPriorityQueue(int size) {
@@ -28,6 +27,11 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
         tailIndex = -1;
     }
 
+    /**
+     * Loops through and finds the highest priority item in the array
+     * @return T
+     * @throws QueueUnderflowException 
+     */
     @Override
     public T head() throws QueueUnderflowException {
         if (isEmpty()) {
@@ -49,6 +53,12 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
         }
     }
 
+    /**
+     * Add new items directly to the end of the array
+     * @param item
+     * @param priority
+     * @throws QueueOverflowException 
+     */
     @Override
     public void add(T item, int priority) throws QueueOverflowException {
         if (tailIndex == capacity - 1) {
@@ -66,6 +76,10 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
         }
     }
 
+    /**
+     * Searches for and removes the highest priority item
+     * @throws QueueUnderflowException 
+     */
     @Override
     public void remove() throws QueueUnderflowException {
         if (isEmpty()) {
@@ -80,11 +94,19 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
         }
     }
            
+    /**
+     * /Checks if the array is empty or not
+     * @return true/false
+     */
     @Override
     public boolean isEmpty() {
         return tailIndex <= -1;
     }
 
+    /**
+     * Displays details about the array in a user friendly manner
+     * @return String
+     */
     @Override
     public String toString() {
         String result = "[";

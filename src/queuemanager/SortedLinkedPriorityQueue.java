@@ -1,12 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package queuemanager;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -20,6 +12,12 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
         head = null;
     }
 
+    
+    /**
+    * Method to loop through the list to find the correct position to add the new item in,
+    * simply add it as the head if there is no other items
+    * or set a new item as the head if it has a higher priority
+    */
     @Override
     public void add(T item, int priority) {
         //System.out.println("Node1: " + newNode);
@@ -37,6 +35,12 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
         }
     }
 
+    /** 
+     * Returns the head of the list quickly as it will
+     * always be the first item
+     * @return T
+     * @throws QueueUnderflowException 
+     */
     @Override
     public T head() throws QueueUnderflowException {
         if (isEmpty()) {
@@ -47,6 +51,10 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
     }
        
 
+    /**
+     * Removes the head of the list
+     * @throws QueueUnderflowException 
+     */
     @Override
     public void remove() throws QueueUnderflowException {
         if(isEmpty()) {
@@ -56,6 +64,10 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
         }       
     }
 
+    /**
+     * Checks if the list is empty or not
+     * @return true/false
+     */
     @Override
     public boolean isEmpty() {
         if(head == null) {
@@ -65,16 +77,14 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
         }
     }
     
+    /**
+     * Displays details about the list in a user friendly manner
+     * @return String
+     */
     @Override
     public String toString() {
         String result = "LinkedStack: size = " + size();
         result += ", contents = [";
-        //for (int i = 0; i <= tailIndex; i++) {
-        //    if (i > 0) {
-        //        result = result + ", ";
-        //    }
-           // result = result + storage[i];
-      //  }
         
          for (Node<T> node = head; node != null; node = node.getNext()) {
             if (node != head) {
@@ -91,6 +101,10 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
          return result;
     }
     
+    /**
+     * Calculates the size of the list
+     * @return int
+     */
     private int size() {
         Node<T> node = head;
         int result = 0;
@@ -99,30 +113,5 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T>{
             node = node.getNext();
         }
         return result;
-    }
-    
-    //Example code so I can kind of maybe understand how to do the code
-    //Search stack for identical item to target and remove it
-    public void removeSpec(T target) {
-        
-        if(head != null) {
-            if (head.getItem().equals(target))
-            {
-                head = head.getNext();
-            } else {
-                
-                //List is not empty and the first item is not the targer
-                Node<T> node = head;
-
-                //Loop until target found
-                while (node.getNext() != null && !node.getNext().getItem().equals(target)) {
-                    node = node.getNext();
-                }
-
-                if(node.getNext() != null) {
-                    node.setNext(node.getNext().getNext());
-                }
-            }
-        }
     }
 }
