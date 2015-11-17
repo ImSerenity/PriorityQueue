@@ -88,7 +88,7 @@ public class UnsortedArrayPriorityQueueTest {
         instance.add(item, priority);
         instance.add(item2, priority2);
         instance.add(item3, priority3);
-        Object expResult = "(Thomas, 1),(James, 3),](Ben, 2)";
+        Object expResult = "[(Thomas, 1),(James, 3),(Ben, 2)]";
         Object result = instance.toString();
         assertEquals(expResult, result);
         
@@ -114,27 +114,26 @@ public class UnsortedArrayPriorityQueueTest {
      */
     @Test
     public void testIsEmpty() {
-        System.out.println("isEmpty");
-        UnsortedArrayPriorityQueue instance = null;
-        boolean expResult = false;
+        System.out.println("isEmpty Test");
+        UnsortedArrayPriorityQueue instance = new UnsortedArrayPriorityQueue(10);
+        boolean expResult = true;
         boolean result = instance.isEmpty();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("Values: " + instance.toString());
+        System.out.println("Is Empty: " + instance.isEmpty());
     }
 
     /**
      * Test of toString method, of class UnsortedArrayPriorityQueue.
      */
     @Test
-    public void testToString() {
+    public void testToString() throws QueueOverflowException {
         System.out.println("toString");
-        UnsortedArrayPriorityQueue instance = null;
-        String expResult = "";
+        UnsortedArrayPriorityQueue instance = new UnsortedArrayPriorityQueue(10);
+        instance.add("Thomas", 2);
+        String expResult = "[(Thomas, 2)]";
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

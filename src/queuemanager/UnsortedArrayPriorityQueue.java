@@ -79,7 +79,6 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
         }
     }
            
-
     @Override
     public boolean isEmpty() {
         return tailIndex <= -1;
